@@ -1,0 +1,33 @@
+# Visual Studio 캐시/설정
+.vs/
+*.vcxproj.user
+*.suo
+*.user
+
+# 빌드 결과물
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# 컴파일 산출물
+*.exe
+*.dll
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.lib
+*.exp
+*.tlog
+*.log
+*.ipch
+*.aps
+*.res
+
+# 기타
+*.tmp
+*.cache
