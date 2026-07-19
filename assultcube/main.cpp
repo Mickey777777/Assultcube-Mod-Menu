@@ -2,6 +2,8 @@
 #include <tlhelp32.h>
 #include <memoryapi.h>
 #include <iostream>
+#include "Renderer.h"
+#include "imgui.h"
 
 DWORD FindPidByName(const wchar_t* name) {
 	DWORD pid = 0xFFFFFFFF;
@@ -71,15 +73,25 @@ int main() {
 	uintptr_t baseAddr = GetModuleBase(pid, processName);
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
 
-	int health = 999999;
-	if (setHealth(hProcess, baseAddr, health)) { 
-		std::cout << "health: " << health << std::endl;
+	bool godMode = false;
+	bool infAmmo = false;
+
+	if (!Renderer_Init()) {
+		return 1;
 	}
 
-	int ammo = 999999;
-	if (setAmmo(hProcess, baseAddr, ammo)) {
-		std::cout << "ammo: " << ammo << std::endl;
-	}
+	while (Renderer_BeginFrame()) {
+		ImGui::Begin("AssaultCube Mod Menu");
+		ImGui::Checkbox("God Mode", &godMode);
+		ImGui::Checkbox("Infinite Ammo", &infAmmo);
+		ImGui::End();
 
-	// std::cout << std::hex << baseAddr << std::endl;
+		if (godMode) setHealth(hProcess, baseAddr, 99999999);
+		if (infAmmo) setAmmo(hProcess, baseAddr, 99999999);
+
+		Renderer_EndFrame();
+	}
+	
+	Renderer_Shutdown();
+	return 0;
 }

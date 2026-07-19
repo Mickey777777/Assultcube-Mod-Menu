@@ -31,3 +31,6 @@ x86/
 # 기타
 *.tmp
 *.cache
+
+# ImGui 런타임 설정 (창 위치/크기 저장 파일)
+imgui.ini
