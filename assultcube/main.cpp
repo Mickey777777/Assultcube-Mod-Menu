@@ -53,6 +53,17 @@ bool setHealth(HANDLE hProcess, uintptr_t baseAddr, int health) {
 	return true;
 }
 
+bool setAmmo(HANDLE hProcess, uintptr_t baseAddr, int ammo) {
+	uintptr_t ammoBase = baseAddr + 0x0018AC00;
+	uintptr_t nextAddr = 0;
+	ReadProcessMemory(hProcess, (LPCVOID)ammoBase, &nextAddr, sizeof(nextAddr), nullptr);
+
+	uintptr_t ammoAddr = nextAddr + 0x140;
+	WriteProcessMemory(hProcess, (LPVOID)ammoAddr, &ammo, sizeof(ammo), nullptr);
+
+	return true;
+}
+
 int main() {
 	DWORD pid = 0xFFFFFFFF;
 	const wchar_t* processName = L"ac_client.exe";
@@ -61,8 +72,13 @@ int main() {
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
 
 	int health = 999999;
-	if (setHealth(hProcess, baseAddr, health)) {
+	if (setHealth(hProcess, baseAddr, health)) { 
 		std::cout << "health: " << health << std::endl;
+	}
+
+	int ammo = 999999;
+	if (setAmmo(hProcess, baseAddr, ammo)) {
+		std::cout << "ammo: " << ammo << std::endl;
 	}
 
 	// std::cout << std::hex << baseAddr << std::endl;

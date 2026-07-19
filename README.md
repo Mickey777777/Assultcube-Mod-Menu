@@ -13,7 +13,10 @@
 1. **`FindPidByName`** — `CreateToolhelp32Snapshot`으로 실행 중인 프로세스 목록을 반복하여 `ac_client.exe`의 PID를 찾는다.
 2. **`GetModuleBase`** — 찾은 프로세스의 모듈 목록에서 `ac_client.exe`의 베이스 주소를 구한다.
 3. **`setHealth`** — 베이스 주소에 오프셋(`0x0017E254`)을 더한 위치에서 포인터를 읽고, 거기에 `0xEC`(offset)를 더한 최종 주소에 원하는 체력 값을 쓴다.
-
 ```
 baseAddr + 0x0017E254  →  [player pointer]  →  + 0xEC  →  health
+```
+4. **`setAmmo`** - 베이스 주소에 오프셋(`0x0018AC00`)을 더한 위치에서 포인터를 읽고, 거기에 `0x140`을 더한 최종 주소에 원하는 탄약 값을 쓴다.
+```
+baseAddr + 0x0018AC00  →  [player pointer]  →  + 0x140  →  health
 ```
