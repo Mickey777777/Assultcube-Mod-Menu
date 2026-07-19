@@ -18,5 +18,5 @@ baseAddr + 0x0017E254  →  [player pointer]  →  + 0xEC  →  health
 ```
 4. **`setAmmo`** - 베이스 주소에 오프셋(`0x0018AC00`)을 더한 위치에서 포인터를 읽고, 거기에 `0x140`을 더한 최종 주소에 원하는 탄약 값을 쓴다.
 ```
-baseAddr + 0x0018AC00  →  [player pointer]  →  + 0x140  →  health
+baseAddr + 0x0018AC00  →  [player pointer]  →  + 0x140  →  ammo
 ```
